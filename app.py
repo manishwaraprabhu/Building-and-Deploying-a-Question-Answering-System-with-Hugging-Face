@@ -1,7 +1,6 @@
 import streamlit as st
 from transformers import AutoTokenizer, AutoModelForQuestionAnswering
 import torch
-import torch.nn.functional as F
 
 # Load tokenizer and model
 def load_model_and_tokenizer(model_path):
@@ -9,35 +8,42 @@ def load_model_and_tokenizer(model_path):
     model = AutoModelForQuestionAnswering.from_pretrained(model_path)
     return tokenizer, model
 
-# Improved Question Answering Function
+# Function for question answering
 def answer_question(question, context, tokenizer, model):
     try:
-        inputs = tokenizer(question, context, return_tensors="pt", truncation=True, padding="max_length", max_length=384)
-
+        # Tokenize the input question and context
+        inputs = tokenizer(
+            question, 
+            context, 
+            return_tensors="pt", 
+            truncation=True, 
+            padding="max_length", 
+            max_length=512  # Adjust if needed
+        )
+        # Perform inference
         with torch.no_grad():
             outputs = model(**inputs)
 
-        start_logits, end_logits = outputs.start_logits, outputs.end_logits
-        start_probs, end_probs = F.softmax(start_logits, dim=1), F.softmax(end_logits, dim=1)
+        # Extract the start and end positions of the answer
+        start_scores = outputs.start_logits
+        end_scores = outputs.end_logits
 
-        # Get top start and end indices
-        start_index = torch.argmax(start_probs).item()
-        end_index = torch.argmax(end_probs).item() + 1  
+        # Get the most likely start and end positions
+        start_index = torch.argmax(start_scores).item()
+        end_index = torch.argmax(end_scores).item() + 1
 
-        # Filter out low-confidence predictions
-        if start_probs[0, start_index] < 0.3 or end_probs[0, end_index - 1] < 0.3:
-            return "I'm not confident in my answer."
+        # Validate indices
+        if start_index >= len(inputs['input_ids'][0]) or end_index > len(inputs['input_ids'][0]) or start_index >= end_index:
+            return "Sorry, I couldn't find an answer to your question."
 
-        # Avoid long spans that include unnecessary text
-        if end_index - start_index > 10:  # Adjust max answer length
-            return "The answer is too uncertain to extract precisely."
+        # Decode the answer
+        answer_tokens = inputs['input_ids'][0][start_index:end_index]
+        answer = tokenizer.decode(answer_tokens, skip_special_tokens=True)
 
-        answer = tokenizer.decode(inputs['input_ids'][0][start_index:end_index], skip_special_tokens=True)
-
+        # Return the answer
         return answer.strip()
-    
     except Exception as e:
-        return f"Error: {str(e)}"
+        return f"An error occurred: {str(e)}"
 
 # Load fine-tuned model and tokenizer
 MODEL_PATH = "C:/Users/manis/LASTPROJECT/best_fine_tuned_model"
@@ -57,12 +63,14 @@ if st.button("Get Answer"):
         st.warning("Please provide both a context and a question.")
     else:
         with st.spinner("Generating answer..."):
+            # Call the function to get the answer
             answer = answer_question(question, context, tokenizer, model)
             if answer:
                 st.success(f"Answer: {answer}")
             else:
                 st.error("Sorry, I couldn't find an answer to your question.")
 
-# Sidebar
 st.sidebar.title("About")
-st.sidebar.write("This app uses a fine-tuned Hugging Face model for QA.")
+st.sidebar.write(
+    "This application uses a fine-tuned model for Question Answering built with Hugging Face Transformers."
+)
