@@ -1,7 +1,7 @@
 # 🧠 Building and Deploying a Question Answering System with Hugging Face
 
 ## 📌 Project Overview  
-This project implements an **Extractive Question Answering (QA) System** using Hugging Face Transformers and Streamlit. A pre-trained **DistilBERT** model was fine-tuned on the **SQuAD** dataset to improve accuracy in extracting answers from a given context. The final model was deployed as an interactive **Streamlit** web application for real-time user interaction.
+This project implements an **Extractive Question Answering (QA) System** using Hugging Face Transformers and Streamlit. While the QA system is extractive in nature, it draws from the broader field of **Natural Language Processing** and **Generative AI**. A pre-trained **DistilBERT** model was fine-tuned on the **SQuAD** dataset to improve accuracy in extracting answers from a given context. The final model was deployed as an interactive **Streamlit** web application for real-time user interaction.
 
 ---
 
@@ -66,7 +66,7 @@ This project implements an **Extractive Question Answering (QA) System** using H
 ---
 
 ## ✅ Conclusion  
-This project demonstrates the **complete lifecycle of building an NLP solution**—from **dataset preparation** and **model fine-tuning** to **deployment and evaluation**. Using Hugging Face Transformers and PyTorch, we improved a DistilBERT model’s performance on SQuAD and deployed it via **Streamlit**, making it accessible for real-time use cases such as knowledge assistants, intelligent search engines, and chatbot integrations.
+This project demonstrates the **complete lifecycle of building an NLP solution**—from **dataset preparation** and **model fine-tuning** to **deployment and evaluation**. Using Hugging Face Transformers and PyTorch, we improved a DistilBERT model’s performance on SQuAD and deployed it via **Streamlit**, making it accessible for real-time use cases such as knowledge assistants, intelligent search engines, and chatbot integrations. By leveraging techniques from **Generative AI**, the project highlights the real-world application of LLMs in building intelligent systems capable of natural language understanding and interactive deployment.
 
 ---
 
@@ -120,3 +120,4 @@ This project demonstrates the **complete lifecycle of building an NLP solution**
 - Evaluating NLP models using EM and F1 metrics  
 - Building and deploying interactive ML apps using Streamlit  
 - Exposure to Hugging Face's ecosystem and Trainer API
+- Gained exposure to the foundations of Generative AI through the fine-tuning and deployment of a transformer-based question answering system.
