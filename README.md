@@ -106,7 +106,9 @@ This project demonstrates the **complete lifecycle of building an NLP solution**
   "question": "What role does the Amazon rainforest play in the climate?",
   "answer": "regulating the global climate"
 }
+```
 
+---
 
 ## 📚 Learning Outcomes
 
