@@ -98,6 +98,7 @@ This project demonstrates the **complete lifecycle of building an NLP solution**
 ├── train.py             # Fine-tuning Script
 ├── requirements.txt
 └── README.md
+```
 
 ---
 
