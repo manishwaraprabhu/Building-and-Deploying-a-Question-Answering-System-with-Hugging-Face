@@ -108,8 +108,6 @@ This project demonstrates the **complete lifecycle of building an NLP solution**
 }
 
 
----
-
 ## 📚 Learning Outcomes
 
 - Fine-tuning pre-trained transformer models for extractive QA  
