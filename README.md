@@ -83,6 +83,8 @@ This project demonstrates the **complete lifecycle of building an NLP solution**
 
 ## 📂 Project Structure
 
+```text
+📂 Project Structure
 ├── data/
 │   ├── train_data.csv
 │   └── validation_data.csv
@@ -92,8 +94,8 @@ This project demonstrates the **complete lifecycle of building an NLP solution**
 ├── evaluation/
 │   ├── evaluation_report.json
 │   └── performance_plots.png
-├── app.py  # Streamlit Application
-├── train.py  # Fine-tuning script
+├── app.py               # Streamlit Application
+├── train.py             # Fine-tuning Script
 ├── requirements.txt
 └── README.md
 
